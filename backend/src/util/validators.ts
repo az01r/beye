@@ -20,21 +20,39 @@ export const saveConnnectionValidation = [
     body('host')
         .trim()
         .notEmpty()
-        .withMessage('Host field is required.'),
+        .withMessage('Host is required.'),
     body('port')
         .trim()
         .notEmpty()
-        .withMessage('Host field is required.'),
+        .withMessage('Port is required.'),
     body('db_name')
         .trim()
         .notEmpty()
-        .withMessage('Host field is required.'),
+        .withMessage('DB name is required.'),
     body('user')
         .trim()
         .notEmpty()
-        .withMessage('Host field is required.'),
+        .withMessage('User is required.'),
     body('password')
         .trim()
         .notEmpty()
-        .withMessage('Host field is required.'),
+        .withMessage('Password is required.'),
+];
+
+export const saveQueryValidation = [
+    body('query')
+        .trim()
+        .notEmpty()
+        .withMessage('Query is required.'),
+    body('connectionId')
+        .trim()
+        .notEmpty()
+        .withMessage('Db connection is required.'),
+];
+
+export const getQueriesByConnectionIdValidation = [
+    body('connectionId')
+        .trim()
+        .notEmpty()
+        .withMessage('Connection id is required.'),
 ];

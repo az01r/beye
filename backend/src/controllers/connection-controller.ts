@@ -9,7 +9,7 @@ export const saveConnection = async (
   next: NextFunction
 ) => {
   const connModel = req.body as ConnectionModel;
-  connModel.userId = req.userId!;
+  connModel.userId = req.userId as number;
   try {
     const connection = await Connection.create(connModel);
     res.status(200).json({ connection });

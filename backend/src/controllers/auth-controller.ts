@@ -80,8 +80,12 @@ export const isAuth = (req: Request, res: Response, next: NextFunction) => {
       token!,
       process.env.JWT_SECRET!
     ) as UserPayload;
-    req.userId = decodedToken.userId;
-    console.log(decodedToken.userId);
+    const userId = decodedToken.userId;
+    if (!userId) {
+      const error = new CustomError("Invalid token.", 401);
+      next(error);
+    }
+    req.userId = userId;
   } catch (e) {
     const error = new CustomError("Authentication failed.", 401);
     next(error);
