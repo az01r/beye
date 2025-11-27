@@ -17,6 +17,10 @@ export const loginValidation = [
 ];
 
 export const saveConnnectionValidation = [
+    body('dbType')
+        .trim()
+        .notEmpty()
+        .withMessage('DB type is required.'),
     body('host')
         .trim()
         .notEmpty()
@@ -24,8 +28,9 @@ export const saveConnnectionValidation = [
     body('port')
         .trim()
         .notEmpty()
+        .isNumeric()
         .withMessage('Port is required.'),
-    body('db_name')
+    body('dbName')
         .trim()
         .notEmpty()
         .withMessage('DB name is required.'),
@@ -47,6 +52,7 @@ export const saveQueryValidation = [
     body('connectionId')
         .trim()
         .notEmpty()
+        .isNumeric()
         .withMessage('Db connection is required.'),
 ];
 
@@ -54,5 +60,23 @@ export const getQueriesByConnectionIdValidation = [
     body('connectionId')
         .trim()
         .notEmpty()
+        .isNumeric()
+        .withMessage('Connection id is required.'),
+];
+
+export const saveScheduleValidation = [
+    body('cron')
+        .trim()
+        .notEmpty()
+        .withMessage('Cron expression is required.'),
+    body('queryId')
+        .trim()
+        .notEmpty()
+        .isNumeric()
+        .withMessage('Query id is required.'),
+    body('connectionId')
+        .trim()
+        .notEmpty()
+        .isNumeric()
         .withMessage('Connection id is required.'),
 ];

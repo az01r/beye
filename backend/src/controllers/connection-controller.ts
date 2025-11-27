@@ -23,7 +23,7 @@ export const getUserConnections = async (
   res: Response,
   next: NextFunction
 ) => {
-  const userId = req.body.userId as string;
+  const userId = req.userId as number;
   try {
     const connection = await Connection.findAll({
       where: {

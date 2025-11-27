@@ -2,10 +2,10 @@ import type { CreationOptional, InferAttributes, InferCreationAttributes, Model 
 
 export interface ConnectionModel extends Model<InferAttributes<ConnectionModel>, InferCreationAttributes<ConnectionModel>> {
   id: CreationOptional<number>;
-  db_type: 'MYSQL' | 'MONGODB';
+  dbType: 'MYSQL' | 'MONGODB';
   host: string;
   port: string;
-  db_name: string;
+  dbName: string;
   user: string;
   password: string;
   userId: number;
