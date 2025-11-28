@@ -12,7 +12,7 @@ const Query = sequelize.define<QueryModel>(
       primaryKey: true,
     },
     query: {
-      type: DataTypes.STRING,
+      type: DataTypes.TEXT,
       allowNull: false,
     },
     connectionId: {

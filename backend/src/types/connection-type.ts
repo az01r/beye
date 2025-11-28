@@ -4,7 +4,7 @@ export interface ConnectionModel extends Model<InferAttributes<ConnectionModel>,
   id: CreationOptional<number>;
   dbType: 'MYSQL' | 'MONGODB';
   host: string;
-  port: string;
+  port: number;
   dbName: string;
   user: string;
   password: string;

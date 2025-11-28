@@ -11,6 +11,7 @@ import helmet from "helmet";
 import corsManager from "./util/corsManager.js";
 import sequelize from "./util/sequelize.js";
 import defineAssociations from "./models/associations.js";
+import { initScheduler } from "./util/query-scheduler.js";
 
 defineAssociations();
 
@@ -18,6 +19,8 @@ await sequelize.sync();
 
 await sequelize.authenticate();
 console.log("\x1b[32mConnected to MySql\x1b[0m");
+
+await initScheduler();
 
 const app = express();
 
