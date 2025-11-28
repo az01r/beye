@@ -74,9 +74,4 @@ export const saveScheduleValidation = [
         .notEmpty()
         .isNumeric()
         .withMessage('Query id is required.'),
-    body('connectionId')
-        .trim()
-        .notEmpty()
-        .isNumeric()
-        .withMessage('Connection id is required.'),
 ];

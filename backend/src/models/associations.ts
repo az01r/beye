@@ -16,17 +16,11 @@ const defineAssociations = () => {
   Query.belongsTo(Connection, {
     foreignKey: 'connectionId'
   });
-  Schedule.hasOne(Query, {
+  Query.hasMany(Schedule, {
     foreignKey: 'queryId'
   });
   Schedule.belongsTo(Query, {
     foreignKey: 'queryId'
-  });
-  Schedule.hasOne(Connection, {
-    foreignKey: 'connectionId'
-  });
-  Schedule.belongsTo(Connection, {
-    foreignKey: 'connectionId'
   });
 }
 

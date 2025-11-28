@@ -15,10 +15,6 @@ const Schedule = sequelize.define<ScheduleModel>(
       type: DataTypes.STRING,
       allowNull: false,
     },
-    connectionId: {
-      type: DataTypes.INTEGER.UNSIGNED,
-      allowNull: false,
-    },
     queryId: {
       type: DataTypes.INTEGER.UNSIGNED,
       allowNull: false,
