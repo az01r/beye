@@ -30,11 +30,11 @@ app.use(helmet()); // Security headers
 
 app.use(corsManager);
 
-app.use("/schedule", scheduleRouter);
+app.use("/connections", connectionRouter);
 
-app.use("/connection", connectionRouter);
+app.use("/queries", queryRouter);
 
-app.use("/query", queryRouter);
+app.use("/schedules", scheduleRouter);
 
 app.use("/auth", authRouter);
 

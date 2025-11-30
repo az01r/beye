@@ -16,7 +16,7 @@ export const loginValidation = [
         .withMessage('Please enter a valid email.'),
 ];
 
-export const saveConnnectionValidation = [
+export const saveConnectionValidation = [
     body('dbType')
         .trim()
         .notEmpty()
@@ -54,14 +54,6 @@ export const saveQueryValidation = [
         .notEmpty()
         .isNumeric()
         .withMessage('Db connection is required.'),
-];
-
-export const getQueriesByConnectionIdValidation = [
-    body('connectionId')
-        .trim()
-        .notEmpty()
-        .isNumeric()
-        .withMessage('Connection id is required.'),
 ];
 
 export const saveScheduleValidation = [

@@ -7,3 +7,6 @@ export interface QueryModel extends Model<InferAttributes<QueryModel>, InferCrea
   createdAt?: CreationOptional<Date>;
   updatedAt?: CreationOptional<Date>;
 }
+
+export type CreateQueryType = Pick<QueryModel, 'query' | 'connectionId'>;
+export type DeleteQueryType = Pick<QueryModel, 'connectionId'>;

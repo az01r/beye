@@ -7,3 +7,6 @@ export interface ScheduleModel extends Model<InferAttributes<ScheduleModel>, Inf
   createdAt?: CreationOptional<Date>;
   updatedAt?: CreationOptional<Date>;
 }
+
+export type ReadScheduleType = Pick<ScheduleModel, 'id' | 'cron' | 'queryId'>;
+export type CreateScheduleType = Pick<ScheduleModel, 'cron' | 'queryId'>;

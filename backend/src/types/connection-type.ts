@@ -12,3 +12,5 @@ export interface ConnectionModel extends Model<InferAttributes<ConnectionModel>,
   createdAt?: CreationOptional<Date>;
   updatedAt?: CreationOptional<Date>;
 }
+
+export type CreateConnectionType = Pick<ConnectionModel, 'dbType' | 'host' | 'port' | 'dbName' | 'user' | 'password'>;

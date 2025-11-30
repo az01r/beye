@@ -5,17 +5,15 @@ import Connection from "../models/connection.js";
 import Query from "../models/query.js";
 import { ConnectionModel } from "../types/connection-type.js";
 import { QueryModel } from "../types/query-type.js";
-import { ScheduleModel } from "../types/schedule-type.js";
+import { CreateScheduleType } from "../types/schedule-type.js";
+import { writeReportFile } from "./writeFile.js";
 
-export const executeQuery = async (schedule: ScheduleModel) => {
+export const executeQuery = async (schedule: CreateScheduleType) => {
   const query = await Query.findByPk(schedule.queryId);
   if (!query) {
     console.error(
       new Date().toLocaleString(),
-      " Query not found fetching by pk ",
-      schedule.queryId,
-      ". Schedule id: ",
-      schedule.id
+      `Query not found fetching by pk ${schedule.queryId}.`,
     );
     return;
   }
@@ -23,21 +21,22 @@ export const executeQuery = async (schedule: ScheduleModel) => {
   if (!connectionData) {
     console.error(
       new Date().toLocaleString(),
-      " Connection not found fetching by pk ",
-      query.connectionId,
-      ". Schedule id: ",
-      schedule.id
+      `Connection not found fetching by pk ${query.connectionId}.`,
     );
     return;
   }
   const dbType = connectionData?.dbType;
 
+  let results: unknown;
   if (dbType === "MYSQL") {
-    await executeMySqlQuery({ connectionData, query });
+    results = await executeMySqlQuery({ connectionData, query });
   }
   if (dbType === "MONGODB") {
-    await executeMongoQuery({ connectionData, query });
+    results = await executeMongoQuery({ connectionData, query });
   }
+
+  const fileName = `QID${query.id}_${new Date().toLocaleString().replace(/[/:*?"<>|\\,\s]/g, "-").replace(/-+/g, "-")}.json`;
+  await writeReportFile(results, fileName);
 };
 
 const executeMongoQuery = async ({
@@ -47,7 +46,7 @@ const executeMongoQuery = async ({
   connectionData: ConnectionModel;
   query: QueryModel;
 }) => {
-  const uri = `mongodb+srv://${connectionData.user}:${connectionData.password}@${connectionData.host}/retryWrites=true&w=majority?appName=Cluster0`;
+  const uri = `mongodb+srv://${connectionData.user}:${connectionData.password}@${connectionData.host}/${connectionData.dbName}?retryWrites=true&w=majority`;
   const client = new MongoClient(uri, {
     serverApi: {
       version: ServerApiVersion.v1,
@@ -72,13 +71,14 @@ const executeMongoQuery = async ({
     else {
       finalData = results;
     }
-    console.log(`Executed Mongo query ${query.id}. \nOutput:\n`, finalData);
+
+    console.log(`Query ${query.id} executed successfully.`);
+    return finalData;
   } catch (error) {
     console.error(
       new Date().toLocaleString(),
-      " Error executing queryId ",
+      "Error executing queryId ",
       query.id,
-      ": ",
       error
     );
   } finally {
@@ -103,14 +103,13 @@ const executeMySqlQuery = async ({
       password: connectionData.password,
     });
     const [results, fields] = await client.query(query.query);
-
-    console.log(`Executed MySql query ${query.id}. \nOutput:\n`, results);
+    console.log(`Query ${query.id} executed successfully.`);
+    return results;
   } catch (error) {
     console.error(
       new Date().toLocaleString(),
-      " Error executing queryId ",
+      "Error executing queryId ",
       query.id,
-      ": ",
       error
     );
   } finally {
