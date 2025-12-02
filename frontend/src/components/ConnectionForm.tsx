@@ -9,6 +9,7 @@ export default function ConnectionForm({ isEditing }: { isEditing: boolean }) {
   const connection = location.state as ConnectionType | undefined;
   const navigation = useNavigation();
   const isSubmitting = navigation.state === "submitting";
+  const isDeleting = navigation.formAction?.includes('destroy') && isSubmitting;
 
   return (
     <>
@@ -50,8 +51,17 @@ export default function ConnectionForm({ isEditing }: { isEditing: boolean }) {
           <input id="password" type="password" name="password" required defaultValue={connection?.password} autoComplete="new-password" />
         </p>
         <div className={classes.actions}>
+          {isEditing && (
+            <button
+              formAction="destroy"
+              className={classes.deleteButton}
+              disabled={isSubmitting}
+            >
+              {isDeleting ? "Deleting..." : "Delete"}
+            </button>
+          )}
           <button disabled={isSubmitting}>
-            {isSubmitting ? "Submitting" : isEditing ? "Save Changes" : "Create Connection"}
+            {isSubmitting && !isDeleting ? "Submitting..." : isEditing ? "Save Changes" : "Create Connection"}
           </button>
         </div>
       </Form>

@@ -1,21 +1,9 @@
 import { redirect, useParams, type ActionFunctionArgs } from "react-router-dom";
-import { createConnection, updateConnection } from "../http";
+import { createConnection, deleteConnection, updateConnection } from "../http";
 import { validateCreateConnectionAction } from "../util/validators";
 import ConnectionForm from "../components/ConnectionForm";
 import type { CreateConnectionType, EditConnectionType } from "../types/connection-types";
 import { isNumeric } from "../util/validation";
-
-// export async function loader({ params }: LoaderFunctionArgs) {
-//   const connectionId = params.connectionId!;
-//   const response = await fetchMessagesByTopicId(topicId);
-//   if (!response.ok) {
-//     // throw new Response(JSON.stringify({ errors: "Failed to fetch messages." }));
-//     throw response;
-//   }
-
-//   const resData = await response.json();
-//   return resData.messages as MessageType[]; // The return value is accessible via useLoaderData
-// }
 
 export async function action({ request, params }: ActionFunctionArgs) {
   const connectionId = params.connectionId;
@@ -43,6 +31,22 @@ export async function action({ request, params }: ActionFunctionArgs) {
     const connectionData: CreateConnectionType = { dbType: dbType as "MONGODB" | "MYSQL", host, port: +port, dbName, user, password };
     response = await createConnection(connectionData);
   }
+
+  if (!response.ok) {
+    throw response;
+  }
+
+  return redirect("/connections");
+}
+
+export async function destroyAction({ params }: ActionFunctionArgs) {
+  const connectionId = params.connectionId;
+
+  if (!connectionId || !isNumeric(connectionId)) {
+    return { message: "Invalid connection ID." };
+  }
+
+  const response = await deleteConnection(+connectionId);
 
   if (!response.ok) {
     throw response;

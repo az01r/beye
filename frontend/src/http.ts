@@ -4,6 +4,19 @@ import { getAuthToken } from "./util/auth";
 
 const BASE_URL = import.meta.env.VITE_URL || "http://localhost:3000";
 
+export async function deleteConnection(connectionId: number) {
+  const token = getAuthToken();
+  const response = await fetch(`${BASE_URL}/connections/${connectionId}`, {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: "Bearer " + token,
+    }
+  });
+
+  return response;
+}
+
 export async function updateConnection(connection: EditConnectionType) {
   const token = getAuthToken();
   const response = await fetch(`${BASE_URL}/connections/${connection.id}`, {

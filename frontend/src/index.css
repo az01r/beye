@@ -4,6 +4,9 @@
     --color-primary: #38bdf8;
     --color-primary-hover: #0ea5e9;
     --color-primary-glow: 0 0 15px rgba(56, 189, 248, 0.5);
+    --color-danger: #dc2626;
+    --color-danger-hover: #b91c1c;
+    --color-danger-glow: 0 0 15px rgba(220, 38, 38, 0.5);
     --color-surface: #1e293b;
     --color-border: #334155;
     --font-family: 'Inter', system-ui, Avenir, Helvetica, Arial, sans-serif;

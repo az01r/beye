@@ -8,7 +8,7 @@ import { tokenLoader, checkAuthLoader } from "./util/auth";
 import ConnectionsPage, { loader as connectionsLoader } from "./pages/ConnectionsPage";
 import QueriesPage, { loader as queriesLoader } from "./pages/QueriesPage";
 import SchedulesPage, { loader as schedulesLoader } from "./pages/SchedulesPage";
-import ConnectionPage, { action as saveConnectionAction } from "./pages/ConnectionPage";
+import ConnectionPage, { action as saveConnectionAction, destroyAction } from "./pages/ConnectionPage";
 
 const router = createBrowserRouter([
   {
@@ -34,8 +34,13 @@ const router = createBrowserRouter([
           {
             path: ":connectionId",
             element: <ConnectionPage />,
-            // loader: connectionLoader,
             action: saveConnectionAction,
+            children: [
+              {
+                path: "destroy",
+                action: destroyAction,
+              },
+            ],
           },
           {
             path: "new",
