@@ -1,6 +1,5 @@
 import { Link, useLoaderData } from "react-router-dom";
 import type { ConnectionType } from "../types/connection-types";
-import classes from "./ConnectionsPage.module.css";
 import { fetchConnections } from "../http";
 
 export async function loader() {
@@ -9,7 +8,7 @@ export async function loader() {
     throw new Response(JSON.stringify({ errors: "Failed to fetch connections." }));
   }
   const resData = await response.json();
-  
+
   return resData.connections as ConnectionType[];
 }
 
@@ -17,23 +16,45 @@ export default function ConnectionsPage() {
   // Use the data loaded by the loader function
   const connections = useLoaderData() as ConnectionType[];
   return (
-    <ul className={classes.list}>
-      {connections.length === 0 && <p>No connections yet!</p>}
-      {connections.length > 0 &&
-        connections.map((connection) => (
-          <li key={connection.id} className={classes.card}>
-            <Link to={`${connection.id}`}>
-              <h2>Connection ID: {connection.id}</h2>
-              <h2>DB Type: {connection.dbType}</h2>
-              <h2>Host: {connection.host}</h2>
-              <h2>Port: {connection.port}</h2>
-              <h2>DB Name: {connection.dbName}</h2>
-              <h2>User: {connection.user}</h2>
-              {connection.createdAt && <h2>Created at: {connection.createdAt.toLocaleString()}</h2>}
-              {connection.updatedAt && <h2>Updated at: {connection.updatedAt.toLocaleString()}</h2>}
+    <table>
+      <thead>
+        <tr>
+          <th>Connection ID</th>
+          <th>DB Type</th>
+          <th>Host</th>
+          <th>Port</th>
+          <th>DB Name</th>
+          <th>User</th>
+          <th>Created at</th>
+          <th>Updated at</th>
+          <th>
+            <Link to="new">
+              <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="100" height="100" viewBox="0,0,256,256">
+                <g fill={"var(--color-text)"} fillRule="nonzero" stroke="none" strokeWidth="1" strokeLinecap="butt" strokeLinejoin="miter" strokeMiterlimit="10" strokeDasharray="" strokeDashoffset="0" fontFamily="none" fontWeight="none" fontSize="none" style={{ mixBlendMode: "normal" }}>
+                  <g transform="scale(5.12,5.12)">
+                    <path d="M25,2c-12.6907,0 -23,10.3093 -23,23c0,12.69071 10.3093,23 23,23c12.69071,0 23,-10.30929 23,-23c0,-12.6907 -10.30929,-23 -23,-23zM25,4c11.60982,0 21,9.39018 21,21c0,11.60982 -9.39018,21 -21,21c-11.60982,0 -21,-9.39018 -21,-21c0,-11.60982 9.39018,-21 21,-21zM24,13v11h-11v2h11v11h2v-11h11v-2h-11v-11z"></path>
+                  </g>
+                </g>
+              </svg>
             </Link>
-          </li>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        {connections.map((connection) => (
+          <tr key={connection.id}>
+            <td>{connection.id}</td>
+            <td>{connection.dbType}</td>
+            <td>{connection.host}</td>
+            <td>{connection.port}</td>
+            <td>{connection.dbName}</td>
+            <td>{connection.user}</td>
+            <td>{connection.createdAt?.toLocaleString()}</td>
+            <td>{connection.updatedAt?.toLocaleString()}</td>
+            <td></td>
+          </tr>
         ))}
-    </ul>
+      </tbody>
+    </table>
   );
 }

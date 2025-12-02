@@ -13,3 +13,7 @@ export function hasMaxLength(value: string, maxLength: number) {
 export function isEqualToOtherValue(a: any, b: any) {
     return a === b;
 }
+
+export function isNumeric(value: string) {
+    return !isNaN(Number(value));
+}

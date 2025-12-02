@@ -6,10 +6,9 @@ import ErrorPage from "./pages/ErrorPage";
 import { action as logoutAction } from "./pages/LogoutPage";
 import { tokenLoader, checkAuthLoader } from "./util/auth";
 import ConnectionsPage, { loader as connectionsLoader } from "./pages/ConnectionsPage";
-import QueriesPage from "./pages/QueriesPage";
-import { loader as queriesLoader } from "./pages/QueriesPage";
-import SchedulesPage from "./pages/SchedulesPage";
-import { loader as schedulesLoader } from "./pages/SchedulesPage";
+import QueriesPage, { loader as queriesLoader } from "./pages/QueriesPage";
+import SchedulesPage, { loader as schedulesLoader } from "./pages/SchedulesPage";
+import NewConnectionPage, { action as createConnectionAction } from "./pages/NewConnectionPage";
 
 const router = createBrowserRouter([
   {
@@ -38,11 +37,11 @@ const router = createBrowserRouter([
           //   loader: topicLoader,
           //   action: sendMessageAction,
           // },
-          // {
-          //   path: "new",
-          //   element: <NewTopicPage />,
-          //   action: createTopicAction,
-          // },
+          {
+            path: "new",
+            element: <NewConnectionPage />,
+            action: createConnectionAction,
+          },
         ],
       },
       {

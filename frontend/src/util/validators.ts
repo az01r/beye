@@ -1,22 +1,26 @@
-import { hasMaxLength, hasMinLength, isEmpty } from "./validation";
+import { hasMaxLength, hasMinLength, isEmpty, isNumeric } from "./validation";
 
-const TITLE_MIN_LENGTH = 1;
-const TITLE_MAX_LENGTH = 50;
 const PASSWORD_MIN_LENGTH = 8;
 
-export function validateCreateTopicAction({ title, terms, }: { title: string; terms: boolean; }) {
+export function validateCreateConnectionAction({ dbType, host, port, dbName, user, password }: { dbType: string; host: string; port: string; dbName: string; user: string; password: string; }) {
   const errors = [];
-  if (
-    isEmpty(title) ||
-    !hasMinLength(title!, TITLE_MIN_LENGTH) ||
-    !hasMaxLength(title!, TITLE_MAX_LENGTH)
-  ) {
-    errors.push(
-      `Title length must be between ${TITLE_MIN_LENGTH} and ${TITLE_MAX_LENGTH} characters.`
-    );
+  if (!["MONGODB", "MYSQL"].includes(dbType)) {
+    errors.push("Invalid database type.");
   }
-  if (!terms) {
-    errors.push("You must agree to the terms and conditions.");
+  if (isEmpty(host)) {
+    errors.push("Invalid host.");
+  }
+  if (isEmpty(port) || !isNumeric(port)) {
+    errors.push("Invalid port.");
+  }
+  if (isEmpty(dbName)) {
+    errors.push("Invalid database name.");
+  }
+  if (isEmpty(user)) {
+    errors.push("Invalid user.");
+  }
+  if (isEmpty(password)) {
+    errors.push("Invalid password.");
   }
   return errors;
 }
@@ -31,17 +35,6 @@ export function validateAuthAction({ email, password }: { email: string; passwor
     errors.push(
       `Password must be at least ${PASSWORD_MIN_LENGTH} characters long.`
     );
-  }
-  return errors;
-}
-
-export function validateSendMessageAction({ topicId, text }: { topicId: string | undefined; text: string | undefined; }) {
-  const errors = [];
-  if (!topicId) {
-    errors.push("Invalid topic.");
-  }
-  if (!text) {
-    errors.push("Message is empty.");
   }
   return errors;
 }

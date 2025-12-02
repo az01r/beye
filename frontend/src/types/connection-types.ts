@@ -1,12 +1,12 @@
 export interface ConnectionType {
-  id: number;
+  id?: number;
   dbType: 'MYSQL' | 'MONGODB';
   host: string;
   port: number;
   dbName: string;
   user: string;
   password: string;
-  userId: number;
+  userId?: number;
   createdAt?: Date;
   updatedAt?: Date;
 }
