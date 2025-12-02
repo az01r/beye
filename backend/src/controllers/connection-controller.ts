@@ -7,12 +7,12 @@ import CustomError from "../types/error-type.js";
 export const readConnections = async (req: Request, res: Response, next: NextFunction) => {
   const userId = req.userId as number;
   try {
-    const connection = await Connection.findAll({
+    const connections = await Connection.findAll({
       where: {
         userId,
       },
     });
-    res.status(200).json({ connection });
+    res.status(200).json({ connections });
   } catch (error) {
     next(error);
   }
