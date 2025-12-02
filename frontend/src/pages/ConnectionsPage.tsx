@@ -1,4 +1,4 @@
-import { Link, useLoaderData } from "react-router-dom";
+import { Link, useLoaderData, useNavigate } from "react-router-dom";
 import type { ConnectionType } from "../types/connection-types";
 import { fetchConnections } from "../http";
 
@@ -15,6 +15,13 @@ export async function loader() {
 export default function ConnectionsPage() {
   // Use the data loaded by the loader function
   const connections = useLoaderData() as ConnectionType[];
+
+  const navigate = useNavigate();
+
+  const handleRowClick = (connection: ConnectionType) => {
+    navigate(`/connections/${connection.id}`, { state: connection });
+  };
+
   return (
     <table>
       <thead>
@@ -42,7 +49,7 @@ export default function ConnectionsPage() {
       </thead>
       <tbody>
         {connections.map((connection) => (
-          <tr key={connection.id}>
+          <tr key={connection.id} onClick={() => handleRowClick(connection)}>
             <td>{connection.id}</td>
             <td>{connection.dbType}</td>
             <td>{connection.host}</td>

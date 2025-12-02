@@ -1,11 +1,24 @@
 import type { AuthType } from "./types/auth-types";
-import type { ConnectionType } from "./types/connection-types";
+import type { CreateConnectionType, EditConnectionType } from "./types/connection-types";
 import { getAuthToken } from "./util/auth";
 
 const BASE_URL = import.meta.env.VITE_URL || "http://localhost:3000";
 
+export async function updateConnection(connection: EditConnectionType) {
+  const token = getAuthToken();
+  const response = await fetch(`${BASE_URL}/connections/${connection.id}`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: "Bearer " + token,
+    },
+    body: JSON.stringify(connection),
+  });
 
-export async function createConnection(connection: ConnectionType) {
+  return response;
+}
+
+export async function createConnection(connection: CreateConnectionType) {
   const token = getAuthToken();
   const response = await fetch(`${BASE_URL}/connections/new`, {
     method: "POST",

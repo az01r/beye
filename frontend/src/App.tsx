@@ -8,7 +8,7 @@ import { tokenLoader, checkAuthLoader } from "./util/auth";
 import ConnectionsPage, { loader as connectionsLoader } from "./pages/ConnectionsPage";
 import QueriesPage, { loader as queriesLoader } from "./pages/QueriesPage";
 import SchedulesPage, { loader as schedulesLoader } from "./pages/SchedulesPage";
-import NewConnectionPage, { action as createConnectionAction } from "./pages/NewConnectionPage";
+import ConnectionPage, { action as saveConnectionAction } from "./pages/ConnectionPage";
 
 const router = createBrowserRouter([
   {
@@ -31,16 +31,16 @@ const router = createBrowserRouter([
             element: <ConnectionsPage />,
             loader: connectionsLoader,
           },
-          // {
-          //   path: ":topicId",
-          //   element: <TopicPage />,
-          //   loader: topicLoader,
-          //   action: sendMessageAction,
-          // },
+          {
+            path: ":connectionId",
+            element: <ConnectionPage />,
+            // loader: connectionLoader,
+            action: saveConnectionAction,
+          },
           {
             path: "new",
-            element: <NewConnectionPage />,
-            action: createConnectionAction,
+            element: <ConnectionPage />,
+            action: saveConnectionAction,
           },
         ],
       },

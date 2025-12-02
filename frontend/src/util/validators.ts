@@ -1,4 +1,4 @@
-import { hasMaxLength, hasMinLength, isEmpty, isNumeric } from "./validation";
+import { hasMinLength, isEmpty, isNumeric } from "./validation";
 
 const PASSWORD_MIN_LENGTH = 8;
 
