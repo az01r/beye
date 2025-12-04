@@ -2,6 +2,17 @@ import { hasMinLength, isEmpty, isNumeric } from "./validation";
 
 const PASSWORD_MIN_LENGTH = 8;
 
+export function validateCreateQueryAction({ query, connectionId }: { query: string; connectionId: string; }) {
+  const errors = [];
+  if (isEmpty(query)) {
+    errors.push("Invalid query.");
+  }
+  if (isEmpty(connectionId)) {
+    errors.push("Invalid connection ID.");
+  }
+  return errors;
+}
+
 export function validateCreateConnectionAction({ dbType, host, port, dbName, user, password }: { dbType: string; host: string; port: string; dbName: string; user: string; password: string; }) {
   const errors = [];
   if (!["MONGODB", "MYSQL"].includes(dbType)) {

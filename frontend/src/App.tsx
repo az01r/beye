@@ -8,7 +8,8 @@ import { tokenLoader, checkAuthLoader } from "./util/auth";
 import ConnectionsPage, { loader as connectionsLoader } from "./pages/ConnectionsPage";
 import QueriesPage, { loader as queriesLoader } from "./pages/QueriesPage";
 import SchedulesPage, { loader as schedulesLoader } from "./pages/SchedulesPage";
-import ConnectionPage, { action as saveConnectionAction, destroyAction } from "./pages/ConnectionPage";
+import ConnectionPage, { action as saveConnectionAction, destroyAction as destroyConnectionAction } from "./pages/ConnectionPage";
+import QueryPage, { action as saveQueryAction, destroyAction as destroyQueryAction } from "./pages/QueryPage";
 
 const router = createBrowserRouter([
   {
@@ -38,7 +39,7 @@ const router = createBrowserRouter([
             children: [
               {
                 path: "destroy",
-                action: destroyAction,
+                action: destroyConnectionAction,
               },
             ],
           },
@@ -51,8 +52,32 @@ const router = createBrowserRouter([
       },
       {
         path: "queries",
-        element: <QueriesPage />,
-        loader: queriesLoader,
+        loader: checkAuthLoader,
+        children: [
+          {
+            index: true,
+            element: <QueriesPage />,
+            loader: queriesLoader,
+          },
+          {
+            path: ":queryId",
+            element: <QueryPage />,
+            loader: connectionsLoader,
+            action: saveQueryAction,
+            children: [
+              {
+                path: "destroy",
+                action: destroyQueryAction,
+              },
+            ],
+          },
+          {
+            path: "new",
+            element: <QueryPage />,
+            loader: connectionsLoader,
+            action: saveQueryAction,
+          },
+        ],
       },
       {
         path: "schedules",

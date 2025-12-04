@@ -1,8 +1,50 @@
 import type { AuthType } from "./types/auth-types";
 import type { CreateConnectionType, EditConnectionType } from "./types/connection-types";
+import type { CreateQueryType, EditQueryType } from "./types/query-types";
 import { getAuthToken } from "./util/auth";
 
 const BASE_URL = import.meta.env.VITE_URL || "http://localhost:3000";
+
+export async function deleteQuery(queryId: number) {
+  const token = getAuthToken();
+  const response = await fetch(`${BASE_URL}/queries/${queryId}`, {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: "Bearer " + token,
+    }
+  });
+
+  return response;
+}
+
+export async function updateQuery(query: EditQueryType) {
+  const token = getAuthToken();
+  const response = await fetch(`${BASE_URL}/queries/${query.id}`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: "Bearer " + token,
+    },
+    body: JSON.stringify(query),
+  });
+
+  return response;
+}
+
+export async function createQuery(query: CreateQueryType) {
+  const token = getAuthToken();
+  const response = await fetch(`${BASE_URL}/queries/new`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: "Bearer " + token,
+    },
+    body: JSON.stringify(query),
+  });
+
+  return response;
+}
 
 export async function deleteConnection(connectionId: number) {
   const token = getAuthToken();
