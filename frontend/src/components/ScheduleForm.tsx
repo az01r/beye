@@ -1,7 +1,8 @@
 import { Form, useActionData, useLoaderData, useLocation, useNavigation } from "react-router-dom";
-import classes from "./AuthForm.module.css";
 import type { QueryType } from "../types/query-types";
 import type { ScheduleType } from "../types/schedule-type";
+import formClasses from "../styles/Form.module.css";
+import btnClasses from "../styles/Button.module.css";
 
 export default function ScheduleForm({ isEditing }: { isEditing: boolean }) {
 
@@ -15,44 +16,44 @@ export default function ScheduleForm({ isEditing }: { isEditing: boolean }) {
   const queries = useLoaderData() as QueryType[];
 
   return (
-    <>
-      <Form method="post" className={classes.form}>
-        <h1>{isEditing ? "Edit Schedule" : "New Schedule"}</h1>
+    <div className={formClasses.form}>
+      <Form method="post">
+        <h1 className={formClasses.formTitle}>{isEditing ? "Edit Schedule" : "New Schedule"}</h1>
         {actionData && actionData.message && (
-          <ul>
+          <ul className={formClasses.errorList}>
             {Array.isArray(actionData.message) && actionData.message.map((err) => (
-              <li key={err}>{err}</li>
+              <li key={err} className={formClasses.errorItem}>{err}</li>
             ))}
-            {typeof actionData.message === "string" && <li>{actionData.message}</li>}
+            {typeof actionData.message === "string" && <li className={formClasses.errorItem}>{actionData.message}</li>}
           </ul>
         )}
-        <p>
-          <label htmlFor="queryId">Query ID</label>
-          <select id="queryId" name="queryId" defaultValue={schedule?.queryId}>
+        <div className={formClasses.formGroup}>
+          <label htmlFor="queryId" className={formClasses.label}>Query ID</label>
+          <select id="queryId" name="queryId" defaultValue={schedule?.queryId} className={formClasses.select}>
             {queries.map(query => (
               <option key={query.id} value={query.id}>Query ID: {query.id}, Connection ID: {query.connectionId}</option>
             ))}
           </select>
-        </p>
-        <p>
-          <label htmlFor="cron">Cron</label>
-          <input type="text" id="cron" name="cron" required defaultValue={schedule?.cron} />
-        </p>
-        <div className={classes.actions}>
+        </div>
+        <div className={formClasses.formGroup}>
+          <label htmlFor="cron" className={formClasses.label}>Cron</label>
+          <input type="text" id="cron" name="cron" required defaultValue={schedule?.cron} className={formClasses.input} />
+        </div>
+        <div className={formClasses.formActions}>
           {isEditing && (
             <button
               formAction="destroy"
-              className={classes.deleteButton}
               disabled={isSubmitting}
+              className={`${btnClasses.btn} ${btnClasses.btnDanger}`}
             >
               {isDeleting ? "Deleting..." : "Delete"}
             </button>
           )}
-          <button disabled={isSubmitting}>
+          <button disabled={isSubmitting} className={`${btnClasses.btn} ${btnClasses.btnPrimary}`}>
             {isSubmitting && !isDeleting ? "Submitting..." : isEditing ? "Save Changes" : "Create Schedule"}
           </button>
         </div>
       </Form>
-    </>
+    </div>
   );
 }

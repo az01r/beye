@@ -1,7 +1,8 @@
 import { Form, useActionData, useLoaderData, useLocation, useNavigation } from "react-router-dom";
-import classes from "./AuthForm.module.css";
 import type { QueryType } from "../types/query-types";
 import type { ConnectionType } from "../types/connection-types";
+import formClasses from "../styles/Form.module.css";
+import btnClasses from "../styles/Button.module.css";
 
 export default function QueryForm({ isEditing }: { isEditing: boolean }) {
 
@@ -15,44 +16,44 @@ export default function QueryForm({ isEditing }: { isEditing: boolean }) {
   const connections = useLoaderData() as ConnectionType[];
 
   return (
-    <>
-      <Form method="post" className={classes.form}>
-        <h1>{isEditing ? "Edit Query" : "New Query"}</h1>
+    <div className={formClasses.form}>
+      <Form method="post">
+        <h1 className={formClasses.formTitle}>{isEditing ? "Edit Query" : "New Query"}</h1>
         {actionData && actionData.message && (
-          <ul>
+          <ul className={formClasses.errorList}>
             {Array.isArray(actionData.message) && actionData.message.map((err) => (
-              <li key={err}>{err}</li>
+              <li key={err} className={formClasses.errorItem}>{err}</li>
             ))}
-            {typeof actionData.message === "string" && <li>{actionData.message}</li>}
+            {typeof actionData.message === "string" && <li className={formClasses.errorItem}>{actionData.message}</li>}
           </ul>
         )}
-        <p>
-          <label htmlFor="connectionId">Connection ID</label>
-          <select id="connectionId" name="connectionId" defaultValue={query?.connectionId}>
+        <div className={formClasses.formGroup}>
+          <label htmlFor="connectionId" className={formClasses.label}>Connection ID</label>
+          <select id="connectionId" name="connectionId" defaultValue={query?.connectionId} className={formClasses.select}>
             {connections.map(connection => (
               <option key={connection.id} value={connection.id}>{connection.id}, {connection.dbType}, {connection.dbName}</option>
             ))}
           </select>
-        </p>
-        <p>
-          <label htmlFor="query">Query</label>
-          <textarea id="query" name="query" required defaultValue={query?.query} />
-        </p>
-        <div className={classes.actions}>
+        </div>
+        <div className={formClasses.formGroup}>
+          <label htmlFor="query" className={formClasses.label}>Query</label>
+          <textarea id="query" name="query" required defaultValue={query?.query} className={formClasses.textarea} />
+        </div>
+        <div className={formClasses.formActions}>
           {isEditing && (
             <button
               formAction="destroy"
-              className={classes.deleteButton}
               disabled={isSubmitting}
+              className={`${btnClasses.btn} ${btnClasses.btnDanger}`}
             >
               {isDeleting ? "Deleting..." : "Delete"}
             </button>
           )}
-          <button disabled={isSubmitting}>
+          <button disabled={isSubmitting} className={`${btnClasses.btn} ${btnClasses.btnPrimary}`}>
             {isSubmitting && !isDeleting ? "Submitting..." : isEditing ? "Save Changes" : "Create Query"}
           </button>
         </div>
       </Form>
-    </>
+    </div>
   );
 }

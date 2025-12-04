@@ -1,0 +1,190 @@
+/* ==================== FORM STYLES ==================== */
+
+/* Form Container */
+.form {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: var(--spacing-xl);
+    background: var(--color-surface);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-lg);
+}
+
+.formWide {
+    max-width: 800px;
+}
+
+/* Form Title */
+.formTitle {
+    margin-bottom: var(--spacing-xl);
+    color: var(--color-text);
+    font-size: var(--font-size-2xl);
+    font-weight: var(--font-weight-bold);
+    text-align: center;
+}
+
+/* Form Group */
+.formGroup {
+    margin-bottom: var(--spacing-lg);
+}
+
+.formGroup:last-of-type {
+    margin-bottom: 0;
+}
+
+/* Label */
+.label {
+    display: block;
+    margin-bottom: var(--spacing-sm);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-medium);
+    color: var(--color-text);
+}
+
+.labelRequired::after {
+    content: ' *';
+    color: var(--color-danger);
+}
+
+/* Input, Select, Textarea */
+.input,
+.select,
+.textarea {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    font-family: var(--font-family);
+    font-size: var(--font-size-base);
+    color: var(--color-text);
+    background-color: var(--color-bg);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    transition: all var(--transition-base);
+}
+
+.input:focus,
+.select:focus,
+.textarea:focus {
+    outline: none;
+    border-color: var(--color-border-focus);
+    box-shadow: 0 0 0 3px hsla(234, 89%, 73%, 0.1), 0 0 15px hsla(234, 89%, 73%, 0.2);
+    background-color: var(--color-surface);
+}
+
+.input:disabled,
+.select:disabled,
+.textarea:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    background-color: var(--color-bg-tertiary);
+}
+
+.textarea {
+    min-height: 120px;
+    resize: vertical;
+}
+
+/* Input Group (for inline elements) */
+.inputGroup {
+    display: flex;
+    gap: var(--spacing-sm);
+    align-items: center;
+}
+
+.inputGroup .input {
+    flex: 1;
+}
+
+/* Error Messages */
+.errorList {
+    list-style: none;
+    margin: var(--spacing-md) 0;
+    padding: var(--spacing-md);
+    background-color: hsla(0, 84%, 60%, 0.1);
+    border-left: 4px solid var(--color-danger);
+    border-radius: var(--radius-sm);
+}
+
+.errorItem {
+    color: var(--color-danger);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-medium);
+    margin-bottom: var(--spacing-xs);
+}
+
+.errorItem:last-child {
+    margin-bottom: 0;
+}
+
+/* Success Messages */
+.successMessage {
+    padding: var(--spacing-md);
+    background-color: hsla(142, 71%, 45%, 0.1);
+    border-left: 4px solid var(--color-success);
+    border-radius: var(--radius-sm);
+    color: var(--color-success);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-medium);
+    margin-bottom: var(--spacing-md);
+}
+
+/* Form Actions */
+.formActions {
+    display: flex;
+    gap: var(--spacing-md);
+    margin-top: var(--spacing-xl);
+    padding-top: var(--spacing-lg);
+    border-top: 1px solid var(--color-border);
+}
+
+.formActions button {
+    flex: 1;
+}
+
+/* Checkbox and Radio */
+.checkbox,
+.radio {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    cursor: pointer;
+}
+
+.checkbox input,
+.radio input {
+    width: 1.25rem;
+    height: 1.25rem;
+    cursor: pointer;
+    accent-color: var(--color-primary);
+}
+
+/* Helper Text */
+.helperText {
+    margin-top: var(--spacing-xs);
+    font-size: var(--font-size-xs);
+    color: var(--color-text-secondary);
+}
+
+/* Inline Form (for search, filters, etc.) */
+.formInline {
+    display: flex;
+    gap: var(--spacing-sm);
+    align-items: flex-end;
+}
+
+.formInline .formGroup {
+    margin-bottom: 0;
+    flex: 1;
+}
+
+/* Dark mode adjustments */
+[data-theme='dark'] .input,
+[data-theme='dark'] .select,
+[data-theme='dark'] .textarea {
+    background-color: var(--color-bg-secondary);
+}
+
+[data-theme='dark'] .input:focus,
+[data-theme='dark'] .select:focus,
+[data-theme='dark'] .textarea:focus {
+    background-color: var(--color-bg-tertiary);
+}

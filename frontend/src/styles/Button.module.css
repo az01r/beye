@@ -1,0 +1,149 @@
+/* ==================== BUTTON STYLES ==================== */
+
+/* Base Button */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--spacing-sm);
+    padding: 0.625rem 1.25rem;
+    font-family: var(--font-family);
+    font-size: var(--font-size-base);
+    font-weight: var(--font-weight-medium);
+    line-height: 1.5;
+    text-align: center;
+    text-decoration: none;
+    border: none;
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    transition: all var(--transition-base);
+    white-space: nowrap;
+    user-select: none;
+    position: relative;
+    overflow: hidden;
+}
+
+.btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    box-shadow: none !important;
+}
+
+.btn:not(:disabled):active {
+    transform: scale(0.98);
+}
+
+/* Primary Button */
+.btnPrimary {
+    background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 100%);
+    color: white;
+    box-shadow: var(--shadow-md);
+}
+
+.btnPrimary:not(:disabled):hover {
+    box-shadow: var(--shadow-lg), var(--glow-primary);
+    transform: translateY(-2px);
+}
+
+.btnPrimary:not(:disabled):active {
+    transform: translateY(0) scale(0.98);
+}
+
+/* Secondary Button */
+.btnSecondary {
+    background-color: var(--color-surface);
+    color: var(--color-text);
+    border: 1px solid var(--color-border);
+    box-shadow: var(--shadow-sm);
+}
+
+.btnSecondary:not(:disabled):hover {
+    background-color: var(--color-surface-hover);
+    border-color: var(--color-primary);
+    box-shadow: var(--shadow-md), 0 0 15px hsla(234, 89%, 73%, 0.2);
+    transform: translateY(-2px);
+}
+
+.btnSecondary:not(:disabled):active {
+    transform: translateY(0) scale(0.98);
+}
+
+/* Danger Button (Delete) */
+.btnDanger {
+    background: var(--color-danger);
+    color: white;
+    box-shadow: var(--shadow-md);
+}
+
+.btnDanger:not(:disabled):hover {
+    background: var(--color-danger-dark);
+    box-shadow: var(--shadow-lg), var(--glow-danger);
+    transform: translateY(-2px);
+}
+
+.btnDanger:not(:disabled):active {
+    transform: translateY(0) scale(0.98);
+}
+
+/* Small Button */
+.btnSmall {
+    padding: 0.5rem 1rem;
+    font-size: var(--font-size-sm);
+}
+
+/* Large Button */
+.btnLarge {
+    padding: 0.875rem 1.75rem;
+    font-size: var(--font-size-lg);
+}
+
+/* Full Width Button */
+.btnFullWidth {
+    width: 100%;
+}
+
+/* Icon Button */
+.btnIcon {
+    padding: 0.625rem;
+    width: 2.5rem;
+    height: 2.5rem;
+}
+
+/* Button Group */
+.btnGroup {
+    display: flex;
+    gap: var(--spacing-sm);
+    flex-wrap: wrap;
+}
+
+/* Loading State */
+.btnLoading {
+    position: relative;
+    color: transparent;
+    pointer-events: none;
+}
+
+.btnLoading::after {
+    content: '';
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    top: 50%;
+    left: 50%;
+    margin-left: -8px;
+    margin-top: -8px;
+    border: 2px solid transparent;
+    border-top-color: currentColor;
+    border-radius: 50%;
+    animation: button-loading-spinner 0.6s linear infinite;
+}
+
+@keyframes button-loading-spinner {
+    from {
+        transform: rotate(0turn);
+    }
+
+    to {
+        transform: rotate(1turn);
+    }
+}

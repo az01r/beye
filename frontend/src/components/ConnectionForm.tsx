@@ -1,6 +1,7 @@
 import { Form, useActionData, useLocation, useNavigation } from "react-router-dom";
-import classes from "./AuthForm.module.css";
 import type { ConnectionType } from "../types/connection-types";
+import formClasses from "../styles/Form.module.css";
+import btnClasses from "../styles/Button.module.css";
 
 export default function ConnectionForm({ isEditing }: { isEditing: boolean }) {
 
@@ -12,59 +13,59 @@ export default function ConnectionForm({ isEditing }: { isEditing: boolean }) {
   const isDeleting = navigation.formAction?.includes('destroy') && isSubmitting;
 
   return (
-    <>
-      <Form method="post" className={classes.form}>
-        <h1>{isEditing ? "Edit Connection" : "New Connection"}</h1>
+    <div className={formClasses.form}>
+      <Form method="post">
+        <h1 className={formClasses.formTitle}>{isEditing ? "Edit Connection" : "New Connection"}</h1>
         {actionData && actionData.message && (
-          <ul>
+          <ul className={formClasses.errorList}>
             {Array.isArray(actionData.message) && actionData.message.map((err) => (
-              <li key={err}>{err}</li>
+              <li key={err} className={formClasses.errorItem}>{err}</li>
             ))}
-            {typeof actionData.message === "string" && <li>{actionData.message}</li>}
+            {typeof actionData.message === "string" && <li className={formClasses.errorItem}>{actionData.message}</li>}
           </ul>
         )}
-        <p>
-          <label htmlFor="dbType">Database Type</label>
-          <select id="dbType" name="dbType" defaultValue={connection?.dbType}>
+        <div className={formClasses.formGroup}>
+          <label htmlFor="dbType" className={formClasses.label}>Database Type</label>
+          <select id="dbType" name="dbType" defaultValue={connection?.dbType} className={formClasses.select}>
             <option value="MYSQL">MySql</option>
             <option value="MONGODB">MongoDB</option>
           </select>
-        </p>
-        <p>
-          <label htmlFor="host">Host</label>
-          <input id="host" type="text" name="host" required defaultValue={connection?.host} />
-        </p>
-        <p>
-          <label htmlFor="port">Port</label>
-          <input id="port" type="number" name="port" required defaultValue={connection?.port} />
-        </p>
-        <p>
-          <label htmlFor="dbName">Database Name</label>
-          <input id="dbName" type="text" name="dbName" required defaultValue={connection?.dbName} />
-        </p>
-        <p>
-          <label htmlFor="user">User</label>
-          <input id="user" type="text" name="user" required defaultValue={connection?.user} autoComplete="new-password" />
-        </p>
-        <p>
-          <label htmlFor="password">Password</label>
-          <input id="password" type="password" name="password" required defaultValue={connection?.password} autoComplete="new-password" />
-        </p>
-        <div className={classes.actions}>
+        </div>
+        <div className={formClasses.formGroup}>
+          <label htmlFor="host" className={formClasses.label}>Host</label>
+          <input id="host" type="text" name="host" required defaultValue={connection?.host} className={formClasses.input} />
+        </div>
+        <div className={formClasses.formGroup}>
+          <label htmlFor="port" className={formClasses.label}>Port</label>
+          <input id="port" type="number" name="port" required defaultValue={connection?.port} className={formClasses.input} />
+        </div>
+        <div className={formClasses.formGroup}>
+          <label htmlFor="dbName" className={formClasses.label}>Database Name</label>
+          <input id="dbName" type="text" name="dbName" required defaultValue={connection?.dbName} className={formClasses.input} />
+        </div>
+        <div className={formClasses.formGroup}>
+          <label htmlFor="user" className={formClasses.label}>User</label>
+          <input id="user" type="text" name="user" required defaultValue={connection?.user} autoComplete="new-password" className={formClasses.input} />
+        </div>
+        <div className={formClasses.formGroup}>
+          <label htmlFor="password" className={formClasses.label}>Password</label>
+          <input id="password" type="password" name="password" required defaultValue={connection?.password} autoComplete="new-password" className={formClasses.input} />
+        </div>
+        <div className={formClasses.formActions}>
           {isEditing && (
             <button
               formAction="destroy"
-              className={classes.deleteButton}
               disabled={isSubmitting}
+              className={`${btnClasses.btn} ${btnClasses.btnDanger}`}
             >
               {isDeleting ? "Deleting..." : "Delete"}
             </button>
           )}
-          <button disabled={isSubmitting}>
+          <button disabled={isSubmitting} className={`${btnClasses.btn} ${btnClasses.btnPrimary}`}>
             {isSubmitting && !isDeleting ? "Submitting..." : isEditing ? "Save Changes" : "Create Connection"}
           </button>
         </div>
       </Form>
-    </>
+    </div>
   );
 }

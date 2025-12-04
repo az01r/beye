@@ -2,6 +2,7 @@ import { Outlet, useLoaderData, useSubmit } from "react-router-dom";
 import Navbar from "./Navbar";
 import { useEffect } from "react";
 import { getTokenDuration } from "../util/auth";
+import { ThemeProvider } from "../context/ThemeContext";
 
 function RootLayout() {
   const token = useLoaderData();
@@ -23,14 +24,14 @@ function RootLayout() {
       submit(null, { action: "/logout", method: "post" });
     }, tokenDuration); // 1h
   }, [token, submit]);
-  
+
   return (
-    <>
+    <ThemeProvider>
       <Navbar />
       <main>
         <Outlet />
       </main>
-    </>
+    </ThemeProvider>
   );
 }
 

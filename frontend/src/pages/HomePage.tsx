@@ -1,7 +1,7 @@
 export default function HomePage() {
   return (
     <>
-      <p>Looking for an opinion on anything? Look no more! Share your thoughts with the world.</p>
+      <p>Connect your data sources and schedule reports effortlessly.</p>
     </>
   );
 }
