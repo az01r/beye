@@ -5,3 +5,6 @@ export interface ScheduleType {
   createdAt?: Date;
   updatedAt?: Date;
 }
+
+export type CreateScheduleType = Pick<ScheduleType, "queryId" | "cron">;
+export type EditScheduleType = Pick<ScheduleType, "id" | "queryId" | "cron">;

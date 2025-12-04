@@ -10,6 +10,7 @@ import QueriesPage, { loader as queriesLoader } from "./pages/QueriesPage";
 import SchedulesPage, { loader as schedulesLoader } from "./pages/SchedulesPage";
 import ConnectionPage, { action as saveConnectionAction, destroyAction as destroyConnectionAction } from "./pages/ConnectionPage";
 import QueryPage, { action as saveQueryAction, destroyAction as destroyQueryAction } from "./pages/QueryPage";
+import SchedulePage, { action as saveScheduleAction, destroyAction as destroyScheduleAction } from "./pages/SchedulePage";
 
 const router = createBrowserRouter([
   {
@@ -81,8 +82,32 @@ const router = createBrowserRouter([
       },
       {
         path: "schedules",
-        element: <SchedulesPage />,
-        loader: schedulesLoader,
+        loader: checkAuthLoader,
+        children: [
+          {
+            index: true,
+            element: <SchedulesPage />,
+            loader: schedulesLoader,
+          },
+          {
+            path: ":scheduleId",
+            element: <SchedulePage />,
+            loader: queriesLoader,
+            action: saveScheduleAction,
+            children: [
+              {
+                path: "destroy",
+                action: destroyScheduleAction,
+              },
+            ],
+          },
+          {
+            path: "new",
+            element: <SchedulePage />,
+            loader: connectionsLoader,
+            action: saveScheduleAction,
+          },
+        ],
       },
       {
         path: "auth",

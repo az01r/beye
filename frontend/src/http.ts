@@ -1,9 +1,51 @@
 import type { AuthType } from "./types/auth-types";
 import type { CreateConnectionType, EditConnectionType } from "./types/connection-types";
 import type { CreateQueryType, EditQueryType } from "./types/query-types";
+import type { CreateScheduleType, EditScheduleType } from "./types/schedule-type";
 import { getAuthToken } from "./util/auth";
 
 const BASE_URL = import.meta.env.VITE_URL || "http://localhost:3000";
+
+export async function deleteSchedule(scheduleId: number) {
+  const token = getAuthToken();
+  const response = await fetch(`${BASE_URL}/schedules/${scheduleId}`, {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: "Bearer " + token,
+    }
+  });
+
+  return response;
+}
+
+export async function updateSchedule(schedule: EditScheduleType) {
+  const token = getAuthToken();
+  const response = await fetch(`${BASE_URL}/schedules/${schedule.id}`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: "Bearer " + token,
+    },
+    body: JSON.stringify(schedule),
+  });
+
+  return response;
+}
+
+export async function createSchedule(schedule: CreateScheduleType) {
+  const token = getAuthToken();
+  const response = await fetch(`${BASE_URL}/schedules/new`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: "Bearer " + token,
+    },
+    body: JSON.stringify(schedule),
+  });
+
+  return response;
+}
 
 export async function deleteQuery(queryId: number) {
   const token = getAuthToken();

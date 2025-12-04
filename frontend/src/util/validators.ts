@@ -2,6 +2,17 @@ import { hasMinLength, isEmpty, isNumeric } from "./validation";
 
 const PASSWORD_MIN_LENGTH = 8;
 
+export function validateCreateScheduleAction({ queryId, cron }: { queryId: string; cron: string; }) {
+  const errors = [];
+  if (isEmpty(queryId)) {
+    errors.push("Invalid query ID.");
+  }
+  if (isEmpty(cron)) {
+    errors.push("Invalid cron.");
+  }
+  return errors;
+}
+
 export function validateCreateQueryAction({ query, connectionId }: { query: string; connectionId: string; }) {
   const errors = [];
   if (isEmpty(query)) {
