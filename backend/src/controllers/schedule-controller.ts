@@ -34,10 +34,10 @@ export const readSchedules = async (req: Request, res: Response, next: NextFunct
 export const createSchedule = async (req: Request, res: Response, next: NextFunction) => {
   const userId = req.userId as number;
 
-  const { tag, cron, queryId } = req.body as CreateScheduleType;
+  const { tag, cron, queryId, fileFormat } = req.body as CreateScheduleType;
   try {
     await isUserQuery({ queryId, userId });
-    const schedule = await Schedule.create({ tag, cron, queryId });
+    const schedule = await Schedule.create({ tag, cron, queryId, fileFormat });
     scheduleQuery(schedule);
     res.status(200).json({ schedule });
   } catch (error) {
@@ -75,14 +75,14 @@ export const readSchedule = async (req: Request, res: Response, next: NextFuncti
 export const updateSchedule = async (req: Request, res: Response, next: NextFunction) => {
   const userId = req.userId as number;
   const scheduleId = Number(req.params.scheduleId);
-  const { tag, cron, queryId } = req.body as CreateScheduleType;
+  const { tag, cron, queryId, fileFormat } = req.body as CreateScheduleType;
   try {
     await isUserQuery({ queryId, userId });
-    const [updatedRows] = await Schedule.update({ tag, cron, queryId }, { where: { id: scheduleId } });
+    const [updatedRows] = await Schedule.update({ tag, cron, queryId, fileFormat }, { where: { id: scheduleId } });
     if (updatedRows === 0) {
       throw new CustomError("Schedule not found.", 404);
     }
-    const updatedSchedule: ReadScheduleType = { id: scheduleId, cron, queryId };
+    const updatedSchedule: ReadScheduleType = { id: scheduleId, cron, queryId, fileFormat };
     scheduleQuery(updatedSchedule);
     res.status(200).json({ message: "Schedule updated successfully." });
   } catch (error) {

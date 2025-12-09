@@ -78,6 +78,11 @@ export const saveScheduleValidation = [
         .notEmpty()
         .isNumeric()
         .withMessage('Query id is required.'),
+    body('fileFormat')
+        .trim()
+        .notEmpty()
+        .isIn(['json', 'xlsx'])
+        .withMessage('File format must be json or xlsx.'),
 ];
 
 export const getReportValidation = [

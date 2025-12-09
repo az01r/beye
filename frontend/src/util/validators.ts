@@ -2,7 +2,7 @@ import { hasMinLength, isEmpty, isNumeric } from "./validation";
 
 const PASSWORD_MIN_LENGTH = 8;
 
-export function validateCreateScheduleAction({ tag, queryId, cron }: { tag: string; queryId: string; cron: string; }) {
+export function validateCreateScheduleAction({ tag, queryId, cron, fileFormat }: { tag: string; queryId: string; cron: string; fileFormat: string; }) {
   const errors = [];
   if (isEmpty(tag)) {
     errors.push("Invalid tag.");
@@ -12,6 +12,9 @@ export function validateCreateScheduleAction({ tag, queryId, cron }: { tag: stri
   }
   if (isEmpty(cron)) {
     errors.push("Invalid cron.");
+  }
+  if (!['json', 'xlsx'].includes(fileFormat)) {
+    errors.push("Invalid file format.");
   }
   return errors;
 }

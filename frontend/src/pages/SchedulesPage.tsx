@@ -32,6 +32,7 @@ export default function SchedulesPage() {
             <th>Tag</th>
             <th>Query ID</th>
             <th>Cron</th>
+            <th>File format</th>
             <th>Created at</th>
             <th>Updated at</th>
             <th className={tableClasses.actionCell}>
@@ -54,6 +55,7 @@ export default function SchedulesPage() {
               <td>{schedule.tag}</td>
               <td>{schedule.queryId}</td>
               <td>{schedule.cron}</td>
+              <td>{schedule.fileFormat}</td>
               <td>{schedule.createdAt?.toLocaleString()}</td>
               <td>{schedule.updatedAt?.toLocaleString()}</td>
               <td></td>

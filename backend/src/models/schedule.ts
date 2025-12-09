@@ -19,6 +19,10 @@ const Schedule = sequelize.define<ScheduleModel>(
       type: DataTypes.STRING,
       allowNull: false,
     },
+    fileFormat: {
+      type: DataTypes.ENUM('json', 'xlsx'),
+      allowNull: false,
+    },
     queryId: {
       type: DataTypes.INTEGER.UNSIGNED,
       allowNull: false,

@@ -13,8 +13,9 @@ export async function action({ request, params }: ActionFunctionArgs) {
   const tag = formData.get("tag")!.toString().trim();
   const queryId = formData.get("queryId")!.toString().trim();
   const cron = formData.get("cron")!.toString().trim();
+  const fileFormat = formData.get("fileFormat")!.toString().trim();
 
-  const errors = validateCreateScheduleAction({ tag, queryId, cron });
+  const errors = validateCreateScheduleAction({ tag, queryId, cron, fileFormat });
 
   if (errors.length > 0) {
     return { message: [...errors] }; // return value is automatically wrapped in a Response by react-router-dom
@@ -22,10 +23,10 @@ export async function action({ request, params }: ActionFunctionArgs) {
 
   let response;
   if (isEditing) {
-    const scheduleData: EditScheduleType = { tag, cron, queryId: +queryId, id: +scheduleId };
+    const scheduleData: EditScheduleType = { tag, cron, queryId: +queryId, id: +scheduleId, fileFormat: fileFormat as 'json' | 'xlsx' };
     response = await updateSchedule(scheduleData);
   } else {
-    const scheduleData: CreateScheduleType = { tag, cron, queryId: +queryId };
+    const scheduleData: CreateScheduleType = { tag, cron, queryId: +queryId, fileFormat: fileFormat as 'json' | 'xlsx' };
     response = await createSchedule(scheduleData);
   }
 

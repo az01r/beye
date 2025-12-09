@@ -43,6 +43,13 @@ export default function ScheduleForm({ isEditing }: { isEditing: boolean }) {
           <label htmlFor="cron" className={formClasses.label}>Cron</label>
           <input type="text" id="cron" name="cron" required defaultValue={schedule?.cron} className={formClasses.input} />
         </div>
+        <div className={formClasses.formGroup}>
+          <label htmlFor="fileFormat" className={formClasses.label}>File Format</label>
+          <select id="fileFormat" name="fileFormat" defaultValue={schedule?.fileFormat} className={formClasses.select}>
+            <option value="json">JSON</option>
+            <option value="xlsx">XLSX</option>
+          </select>
+        </div>
         <div className={formClasses.formActions}>
           {isEditing && (
             <button

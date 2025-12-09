@@ -1,7 +1,7 @@
 import cron from "node-cron";
 
 import Schedule from "../models/schedule.js";
-import { executeQuery } from "./execute-query.js";
+import runReport from "./runReport.js";
 import { ReadScheduleType } from "../types/schedule-type.js";
 
 export const scheduledTasks = new Map<number, cron.ScheduledTask>();
@@ -18,7 +18,7 @@ export const scheduleQuery = (schedule: ReadScheduleType) => {
     scheduledTasks.get(schedule.id)?.stop();
   }
   const task = cron.schedule(schedule.cron, async () => {
-    await executeQuery(schedule.queryId);
+    await runReport(schedule);
   });
   scheduledTasks.set(schedule.id, task);
 };
