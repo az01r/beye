@@ -2,6 +2,7 @@ import User from "./user.js";
 import Connection from "./connection.js";
 import Query from "./query.js";
 import Schedule from "./schedule.js";
+import Report from "./report.js";
 
 const defineAssociations = () => {
   User.hasMany(Connection, {
@@ -21,6 +22,12 @@ const defineAssociations = () => {
   });
   Schedule.belongsTo(Query, {
     foreignKey: 'queryId'
+  });
+  User.hasMany(Report, {
+    foreignKey: 'userId'
+  });
+  Report.belongsTo(User, {
+    foreignKey: 'userId'
   });
 }
 

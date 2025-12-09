@@ -36,6 +36,11 @@ function Navbar() {
               Schedules
             </NavLink>
           </li>
+          <li>
+            <NavLink to="/reports" className={linkClassName} end>
+              Reports
+            </NavLink>
+          </li>
         </ul>
         <div className={classes.navbarRight}>
           <button

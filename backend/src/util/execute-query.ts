@@ -6,6 +6,7 @@ import Query from "../models/query.js";
 import { ConnectionModel } from "../types/connection-type.js";
 import { QueryModel } from "../types/query-type.js";
 import { writeReportFile } from "./writeFile.js";
+import Report from "../models/report.js";
 
 export const executeQuery = async (queryId: number) => {
   const query = await Query.findByPk(queryId);
@@ -35,7 +36,8 @@ export const executeQuery = async (queryId: number) => {
   }
 
   const fileName = `QID${query.id}_${new Date().toLocaleString().replace(/[/:*?"<>|\\,\s]/g, "-").replace(/-+/g, "-")}.json`;
-  await writeReportFile(results, fileName);
+  await writeReportFile(results, connectionData.userId, fileName);
+  await Report.create({ userId: connectionData.userId, fileName, });
 };
 
 const executeMongoQuery = async ({

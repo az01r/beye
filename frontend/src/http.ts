@@ -129,6 +129,31 @@ export async function createConnection(connection: CreateConnectionType) {
   return response;
 }
 
+export async function fetchReport(fileName: string) {
+  const token = getAuthToken();
+  const response = await fetch(`${BASE_URL}/reports`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: "Bearer " + token,
+    },
+    body: JSON.stringify({ fileName }),
+  });
+  return response;
+}
+
+export async function fetchReports() {
+  const token = getAuthToken();
+  const response = await fetch(`${BASE_URL}/reports`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: "Bearer " + token,
+    },
+  });
+  return response;
+}
+
 export async function fetchSchedules() {
   const token = getAuthToken();
   const response = await fetch(`${BASE_URL}/schedules`, {

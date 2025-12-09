@@ -79,3 +79,10 @@ export const saveScheduleValidation = [
         .isNumeric()
         .withMessage('Query id is required.'),
 ];
+
+export const getReportValidation = [
+    body('fileName')
+        .trim()
+        .notEmpty()
+        .withMessage('File name is required.'),
+];

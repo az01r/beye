@@ -7,6 +7,7 @@ import errorRouter from "./routes/error-router.js";
 import connectionRouter from "./routes/connection-router.js";
 import queryRouter from "./routes/query-router.js";
 import scheduleRouter from "./routes/schedule-router.js";
+import reportRouter from "./routes/report-router.js";
 import helmet from "helmet";
 import corsManager from "./util/corsManager.js";
 import sequelize from "./util/sequelize.js";
@@ -29,6 +30,8 @@ app.use(express.json());
 app.use(helmet()); // Security headers
 
 app.use(corsManager);
+
+app.use("/reports", reportRouter);
 
 app.use("/connections", connectionRouter);
 
