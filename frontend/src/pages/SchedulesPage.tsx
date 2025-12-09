@@ -37,11 +37,11 @@ export default function SchedulesPage() {
             <th>Updated at</th>
             <th className={tableClasses.actionCell}>
               <Link to="new" className={tableClasses.actionButton}>
-                <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="100" height="100" viewBox="0,0,256,256">
-                  <g fill="currentColor" fillRule="nonzero" stroke="none" strokeWidth="1" strokeLinecap="butt" strokeLinejoin="miter" strokeMiterlimit="10" strokeDasharray="" strokeDashoffset="0" fontFamily="none" fontWeight="none" fontSize="none">
-                    <g transform="scale(5.12,5.12)">
-                      <path d="M25,2c-12.6907,0 -23,10.3093 -23,23c0,12.69071 10.3093,23 23,23c12.69071,0 23,-10.30929 23,-23c0,-12.6907 -10.30929,-23 -23,-23zM25,4c11.60982,0 21,9.39018 21,21c0,11.60982 -9.39018,21 -21,21c-11.60982,0 -21,-9.39018 -21,-21c0,-11.60982 9.39018,-21 21,-21zM24,13v11h-11v2h11v11h2v-11h11v-2h-11v-11z"></path>
-                    </g>
+                <svg fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" stroke="currentColor">
+                  <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                  <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                  <g id="SVGRepo_iconCarrier">
+                    <path d="M13 11h7a1 1 0 0 1 0 2h-7v7a1 1 0 0 1-2 0v-7H4a1 1 0 0 1 0-2h7V4a1 1 0 0 1 2 0v7z"></path>
                   </g>
                 </svg>
               </Link>
@@ -57,8 +57,7 @@ export default function SchedulesPage() {
               <td>{schedule.cron}</td>
               <td>{schedule.fileFormat}</td>
               <td>{schedule.createdAt?.toLocaleString()}</td>
-              <td>{schedule.updatedAt?.toLocaleString()}</td>
-              <td></td>
+              <td colSpan={2}>{schedule.updatedAt?.toLocaleString()}</td>
             </tr>
           ))}
         </tbody>
