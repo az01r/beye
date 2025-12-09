@@ -1,5 +1,6 @@
 export interface ConnectionType {
   id: number;
+  tag: string;
   dbType: 'MYSQL' | 'MONGODB';
   host: string;
   port: number;
@@ -11,5 +12,5 @@ export interface ConnectionType {
   updatedAt: Date;
 }
 
-export type CreateConnectionType = Pick<ConnectionType, "dbType" | "host" | "port" | "dbName" | "user" | "password">;
-export type EditConnectionType = Pick<ConnectionType, "id" | "dbType" | "host" | "port" | "dbName" | "user" | "password">;
+export type CreateConnectionType = Pick<ConnectionType, "tag" | "dbType" | "host" | "port" | "dbName" | "user" | "password">;
+export type EditConnectionType = Pick<ConnectionType, "id" | "tag" | "dbType" | "host" | "port" | "dbName" | "user" | "password">;

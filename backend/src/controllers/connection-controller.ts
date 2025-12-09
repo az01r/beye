@@ -19,8 +19,8 @@ export const readConnections = async (req: Request, res: Response, next: NextFun
 };
 
 export const createConnection = async (req: Request, res: Response, next: NextFunction) => {
-  const { dbType, host, port, dbName, user, password } = req.body as CreateConnectionType;
-  const safePayload: CreateConnectionType = { dbType, host, port, dbName, user, password };
+  const { tag, dbType, host, port, dbName, user, password } = req.body as CreateConnectionType;
+  const safePayload: CreateConnectionType = { tag, dbType, host, port, dbName, user, password };
   const userId = req.userId as number;
   try {
     const connection = await Connection.create({ ...safePayload, userId });
@@ -47,8 +47,8 @@ export const readConnection = async (req: Request, res: Response, next: NextFunc
 };
 
 export const updateConnection = async (req: Request, res: Response, next: NextFunction) => {
-  const { dbType, host, port, dbName, user, password } = req.body as CreateConnectionType;
-  const safePayload: CreateConnectionType = { dbType, host, port, dbName, user, password };
+  const { tag, dbType, host, port, dbName, user, password } = req.body as CreateConnectionType;
+  const safePayload: CreateConnectionType = { tag, dbType, host, port, dbName, user, password };
   const userId = req.userId as number;
   const connectionId = Number(req.params.connectionId);
   try {

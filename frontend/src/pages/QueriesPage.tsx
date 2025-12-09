@@ -29,6 +29,7 @@ export default function QueriesPage() {
         <thead>
           <tr>
             <th>Query ID</th>
+            <th>Tag</th>
             <th>Connection ID</th>
             <th>Created at</th>
             <th>Updated at</th>
@@ -49,6 +50,7 @@ export default function QueriesPage() {
           {queries.map((query) => (
             <tr key={query.id} onClick={() => handleRowClick(query)}>
               <td>{query.id}</td>
+              <td>{query.tag}</td>
               <td>{query.connectionId}</td>
               <td>{query.createdAt?.toLocaleString()}</td>
               <td>{query.updatedAt?.toLocaleString()}</td>

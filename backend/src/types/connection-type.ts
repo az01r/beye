@@ -2,6 +2,7 @@ import type { CreationOptional, InferAttributes, InferCreationAttributes, Model 
 
 export interface ConnectionModel extends Model<InferAttributes<ConnectionModel>, InferCreationAttributes<ConnectionModel>> {
   id: CreationOptional<number>;
+  tag: string;
   dbType: 'MYSQL' | 'MONGODB';
   host: string;
   port: number;
@@ -13,4 +14,4 @@ export interface ConnectionModel extends Model<InferAttributes<ConnectionModel>,
   updatedAt?: CreationOptional<Date>;
 }
 
-export type CreateConnectionType = Pick<ConnectionModel, 'dbType' | 'host' | 'port' | 'dbName' | 'user' | 'password'>;
+export type CreateConnectionType = Pick<ConnectionModel, 'tag' | 'dbType' | 'host' | 'port' | 'dbName' | 'user' | 'password'>;

@@ -11,6 +11,10 @@ const Connection = sequelize.define<ConnectionModel>(
       allowNull: false,
       primaryKey: true,
     },
+    tag: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
     dbType: {
       type: DataTypes.ENUM('MYSQL', 'MONGODB'),
       allowNull: false,

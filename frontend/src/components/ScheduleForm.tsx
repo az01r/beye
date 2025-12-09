@@ -28,10 +28,14 @@ export default function ScheduleForm({ isEditing }: { isEditing: boolean }) {
           </ul>
         )}
         <div className={formClasses.formGroup}>
-          <label htmlFor="queryId" className={formClasses.label}>Query ID</label>
+          <label htmlFor="tag" className={formClasses.label}>Tag</label>
+          <input id="tag" name="tag" required defaultValue={schedule?.tag} className={formClasses.input} />
+        </div>
+        <div className={formClasses.formGroup}>
+          <label htmlFor="queryId" className={formClasses.label}>Query</label>
           <select id="queryId" name="queryId" defaultValue={schedule?.queryId} className={formClasses.select}>
             {queries.map(query => (
-              <option key={query.id} value={query.id}>Query ID: {query.id}, Connection ID: {query.connectionId}</option>
+              <option key={query.id} value={query.id}>{query.tag}</option>
             ))}
           </select>
         </div>

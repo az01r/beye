@@ -18,7 +18,7 @@ export const scheduleQuery = (schedule: ReadScheduleType) => {
     scheduledTasks.get(schedule.id)?.stop();
   }
   const task = cron.schedule(schedule.cron, async () => {
-    await executeQuery(schedule);
+    await executeQuery(schedule.queryId);
   });
   scheduledTasks.set(schedule.id, task);
 };

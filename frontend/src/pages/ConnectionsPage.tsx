@@ -29,6 +29,7 @@ export default function ConnectionsPage() {
         <thead>
           <tr>
             <th>Connection ID</th>
+            <th>Tag</th>
             <th>DB Type</th>
             <th>Host</th>
             <th>Port</th>
@@ -53,6 +54,7 @@ export default function ConnectionsPage() {
           {connections.map((connection) => (
             <tr key={connection.id} onClick={() => handleRowClick(connection)}>
               <td>{connection.id}</td>
+              <td>{connection.tag}</td>
               <td>{connection.dbType}</td>
               <td>{connection.host}</td>
               <td>{connection.port}</td>

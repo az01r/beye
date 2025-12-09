@@ -11,6 +11,10 @@ const Schedule = sequelize.define<ScheduleModel>(
       allowNull: false,
       primaryKey: true,
     },
+    tag: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
     cron: {
       type: DataTypes.STRING,
       allowNull: false,

@@ -10,21 +10,21 @@ export async function action({ request, params }: ActionFunctionArgs) {
   const isEditing = !!(queryId && isNumeric(queryId));
 
   const formData = await request.formData();
+  const tag = formData.get("tag")!.toString().trim();
   const query = formData.get("query")!.toString().trim();
   const connectionId = formData.get("connectionId")!.toString().trim();
 
-  const errors = validateCreateQueryAction({ query, connectionId });
-
+  const errors = validateCreateQueryAction({ tag, query, connectionId });
   if (errors.length > 0) {
     return { message: [...errors] }; // return value is automatically wrapped in a Response by react-router-dom
   }
 
   let response;
   if (isEditing) {
-    const queryData: EditQueryType = { query, connectionId: +connectionId, id: +queryId };
+    const queryData: EditQueryType = { tag, query, connectionId: +connectionId, id: +queryId };
     response = await updateQuery(queryData);
   } else {
-    const queryData: CreateQueryType = { query, connectionId: +connectionId };
+    const queryData: CreateQueryType = { tag, query, connectionId: +connectionId };
     response = await createQuery(queryData);
   }
 

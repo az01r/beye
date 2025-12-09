@@ -1,6 +1,6 @@
 import type { Request, Response, NextFunction } from "express";
 
-import { CreateScheduleType } from "../types/schedule-type.js";
+import { CreateScheduleType, ReadScheduleType } from "../types/schedule-type.js";
 import Schedule from "../models/schedule.js";
 import { scheduleQuery, unscheduleQuery } from "../util/query-scheduler.js";
 import Query from "../models/query.js";
@@ -34,10 +34,10 @@ export const readSchedules = async (req: Request, res: Response, next: NextFunct
 export const createSchedule = async (req: Request, res: Response, next: NextFunction) => {
   const userId = req.userId as number;
 
-  const { cron, queryId } = req.body as CreateScheduleType;
+  const { tag, cron, queryId } = req.body as CreateScheduleType;
   try {
     await isUserQuery({ queryId, userId });
-    const schedule = await Schedule.create({ cron, queryId });
+    const schedule = await Schedule.create({ tag, cron, queryId });
     scheduleQuery(schedule);
     res.status(200).json({ schedule });
   } catch (error) {
@@ -75,14 +75,15 @@ export const readSchedule = async (req: Request, res: Response, next: NextFuncti
 export const updateSchedule = async (req: Request, res: Response, next: NextFunction) => {
   const userId = req.userId as number;
   const scheduleId = Number(req.params.scheduleId);
-  const { cron, queryId } = req.body as CreateScheduleType;
+  const { tag, cron, queryId } = req.body as CreateScheduleType;
   try {
     await isUserQuery({ queryId, userId });
-    const [updatedRows] = await Schedule.update({ cron, queryId }, { where: { id: scheduleId } });
+    const [updatedRows] = await Schedule.update({ tag, cron, queryId }, { where: { id: scheduleId } });
     if (updatedRows === 0) {
       throw new CustomError("Schedule not found.", 404);
     }
-    scheduleQuery({ cron, queryId, id: scheduleId });
+    const updatedSchedule: ReadScheduleType = { id: scheduleId, cron, queryId };
+    scheduleQuery(updatedSchedule);
     res.status(200).json({ message: "Schedule updated successfully." });
   } catch (error) {
     next(error);

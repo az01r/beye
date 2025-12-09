@@ -25,6 +25,10 @@ export default function ConnectionForm({ isEditing }: { isEditing: boolean }) {
           </ul>
         )}
         <div className={formClasses.formGroup}>
+          <label htmlFor="tag" className={formClasses.label}>Tag</label>
+          <input id="tag" type="text" name="tag" required defaultValue={connection?.tag} className={formClasses.input} />
+        </div>
+        <div className={formClasses.formGroup}>
           <label htmlFor="dbType" className={formClasses.label}>Database Type</label>
           <select id="dbType" name="dbType" defaultValue={connection?.dbType} className={formClasses.select}>
             <option value="MYSQL">MySql</option>

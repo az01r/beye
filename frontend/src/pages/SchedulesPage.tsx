@@ -29,6 +29,7 @@ export default function SchedulesPage() {
         <thead>
           <tr>
             <th>Schedule ID</th>
+            <th>Tag</th>
             <th>Query ID</th>
             <th>Cron</th>
             <th>Created at</th>
@@ -50,6 +51,7 @@ export default function SchedulesPage() {
           {schedules.map((schedule) => (
             <tr key={schedule.id} onClick={() => handleRowClick(schedule)}>
               <td>{schedule.id}</td>
+              <td>{schedule.tag}</td>
               <td>{schedule.queryId}</td>
               <td>{schedule.cron}</td>
               <td>{schedule.createdAt?.toLocaleString()}</td>

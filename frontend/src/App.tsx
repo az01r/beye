@@ -104,7 +104,7 @@ const router = createBrowserRouter([
           {
             path: "new",
             element: <SchedulePage />,
-            loader: connectionsLoader,
+            loader: queriesLoader,
             action: saveScheduleAction,
           },
         ],

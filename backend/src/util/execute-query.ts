@@ -5,15 +5,14 @@ import Connection from "../models/connection.js";
 import Query from "../models/query.js";
 import { ConnectionModel } from "../types/connection-type.js";
 import { QueryModel } from "../types/query-type.js";
-import { CreateScheduleType } from "../types/schedule-type.js";
 import { writeReportFile } from "./writeFile.js";
 
-export const executeQuery = async (schedule: CreateScheduleType) => {
-  const query = await Query.findByPk(schedule.queryId);
+export const executeQuery = async (queryId: number) => {
+  const query = await Query.findByPk(queryId);
   if (!query) {
     console.error(
       new Date().toLocaleString(),
-      `Query not found fetching by pk ${schedule.queryId}.`,
+      `Query not found fetching by pk ${queryId}.`,
     );
     return;
   }

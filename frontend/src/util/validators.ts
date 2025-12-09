@@ -2,8 +2,11 @@ import { hasMinLength, isEmpty, isNumeric } from "./validation";
 
 const PASSWORD_MIN_LENGTH = 8;
 
-export function validateCreateScheduleAction({ queryId, cron }: { queryId: string; cron: string; }) {
+export function validateCreateScheduleAction({ tag, queryId, cron }: { tag: string; queryId: string; cron: string; }) {
   const errors = [];
+  if (isEmpty(tag)) {
+    errors.push("Invalid tag.");
+  }
   if (isEmpty(queryId)) {
     errors.push("Invalid query ID.");
   }
@@ -13,8 +16,11 @@ export function validateCreateScheduleAction({ queryId, cron }: { queryId: strin
   return errors;
 }
 
-export function validateCreateQueryAction({ query, connectionId }: { query: string; connectionId: string; }) {
+export function validateCreateQueryAction({ tag, query, connectionId }: { tag: string; query: string; connectionId: string; }) {
   const errors = [];
+  if (isEmpty(tag)) {
+    errors.push("Invalid tag.");
+  }
   if (isEmpty(query)) {
     errors.push("Invalid query.");
   }
@@ -24,8 +30,11 @@ export function validateCreateQueryAction({ query, connectionId }: { query: stri
   return errors;
 }
 
-export function validateCreateConnectionAction({ dbType, host, port, dbName, user, password }: { dbType: string; host: string; port: string; dbName: string; user: string; password: string; }) {
+export function validateCreateConnectionAction({ tag, dbType, host, port, dbName, user, password }: { tag: string; dbType: string; host: string; port: string; dbName: string; user: string; password: string; }) {
   const errors = [];
+  if (isEmpty(tag)) {
+    errors.push("Invalid tag.");
+  }
   if (!["MONGODB", "MYSQL"].includes(dbType)) {
     errors.push("Invalid database type.");
   }

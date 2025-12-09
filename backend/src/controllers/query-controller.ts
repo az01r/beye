@@ -1,6 +1,6 @@
 import type { Request, Response, NextFunction } from "express";
 
-import { CreateQueryType, DeleteQueryType, QueryModel } from "../types/query-type.js";
+import { CreateQueryType } from "../types/query-type.js";
 import Query from "../models/query.js";
 import Connection from "../models/connection.js";
 import CustomError from "../types/error-type.js";
@@ -25,9 +25,9 @@ export const readQueries = async (req: Request, res: Response, next: NextFunctio
 };
 
 export const createQuery = async (req: Request, res: Response, next: NextFunction) => {
-  const { query, connectionId } = req.body as CreateQueryType;
+  const { tag, query, connectionId } = req.body as CreateQueryType;
   const userId = req.userId as number;
-  const safePayload: CreateQueryType = { query, connectionId };
+  const safePayload: CreateQueryType = { tag, query, connectionId };
   try {
     await isUserConnection({ connectionId, userId });
     const query = await Query.create(safePayload);
@@ -61,11 +61,11 @@ export const readQuery = async (req: Request, res: Response, next: NextFunction)
 export const updateQuery = async (req: Request, res: Response, next: NextFunction) => {
   const userId = req.userId as number;
   const queryId = Number(req.params.queryId);
-  const { query, connectionId } = req.body as CreateQueryType;
+  const { tag, query, connectionId } = req.body as CreateQueryType;
   try {
     await isUserQuery({ queryId, userId });
     await isUserConnection({ connectionId, userId });
-    const [updatedRows] = await Query.update({ query, connectionId }, { where: { id: queryId } });
+    const [updatedRows] = await Query.update({ tag, query, connectionId }, { where: { id: queryId } });
     if (updatedRows === 0) {
       throw new CustomError("Query not found.", 404);
     }

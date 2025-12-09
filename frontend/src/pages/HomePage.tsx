@@ -1,7 +1,7 @@
 export default function HomePage() {
   return (
     <>
-      <p>Connect your data sources and schedule reports effortlessly.</p>
+      <p>Connect your database and schedule reports effortlessly.</p>
     </>
   );
 }

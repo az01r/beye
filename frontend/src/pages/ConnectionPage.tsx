@@ -10,6 +10,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
   const isEditing = !!(connectionId && isNumeric(connectionId));
 
   const formData = await request.formData();
+  const tag = formData.get("tag")!.toString().trim();
   const dbType = formData.get("dbType")!.toString().trim();
   const host = formData.get("host")!.toString().trim();
   const port = formData.get("port")!.toString().trim();
@@ -17,7 +18,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
   const user = formData.get("user")!.toString().trim();
   const password = formData.get("password")!.toString().trim();
 
-  const errors = validateCreateConnectionAction({ dbType, host, port, dbName, user, password });
+  const errors = validateCreateConnectionAction({ tag, dbType, host, port, dbName, user, password });
 
   if (errors.length > 0) {
     return { message: [...errors] }; // return value is automatically wrapped in a Response by react-router-dom
@@ -25,10 +26,10 @@ export async function action({ request, params }: ActionFunctionArgs) {
 
   let response;
   if (isEditing) {
-    const connectionData: EditConnectionType = { dbType: dbType as "MONGODB" | "MYSQL", host, port: +port, dbName, user, password, id: +connectionId };
+    const connectionData: EditConnectionType = { tag, dbType: dbType as "MONGODB" | "MYSQL", host, port: +port, dbName, user, password, id: +connectionId };
     response = await updateConnection(connectionData);
   } else {
-    const connectionData: CreateConnectionType = { dbType: dbType as "MONGODB" | "MYSQL", host, port: +port, dbName, user, password };
+    const connectionData: CreateConnectionType = { tag, dbType: dbType as "MONGODB" | "MYSQL", host, port: +port, dbName, user, password };
     response = await createConnection(connectionData);
   }
 

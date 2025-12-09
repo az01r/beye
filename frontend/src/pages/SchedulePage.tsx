@@ -10,10 +10,11 @@ export async function action({ request, params }: ActionFunctionArgs) {
   const isEditing = !!(scheduleId && isNumeric(scheduleId));
 
   const formData = await request.formData();
+  const tag = formData.get("tag")!.toString().trim();
   const queryId = formData.get("queryId")!.toString().trim();
   const cron = formData.get("cron")!.toString().trim();
 
-  const errors = validateCreateScheduleAction({ queryId, cron });
+  const errors = validateCreateScheduleAction({ tag, queryId, cron });
 
   if (errors.length > 0) {
     return { message: [...errors] }; // return value is automatically wrapped in a Response by react-router-dom
@@ -21,10 +22,10 @@ export async function action({ request, params }: ActionFunctionArgs) {
 
   let response;
   if (isEditing) {
-    const scheduleData: EditScheduleType = { cron, queryId: +queryId, id: +scheduleId };
+    const scheduleData: EditScheduleType = { tag, cron, queryId: +queryId, id: +scheduleId };
     response = await updateSchedule(scheduleData);
   } else {
-    const scheduleData: CreateScheduleType = { cron, queryId: +queryId };
+    const scheduleData: CreateScheduleType = { tag, cron, queryId: +queryId };
     response = await createSchedule(scheduleData);
   }
 

@@ -28,10 +28,14 @@ export default function QueryForm({ isEditing }: { isEditing: boolean }) {
           </ul>
         )}
         <div className={formClasses.formGroup}>
-          <label htmlFor="connectionId" className={formClasses.label}>Connection ID</label>
+          <label htmlFor="tag" className={formClasses.label}>Tag</label>
+          <input id="tag" name="tag" required defaultValue={query?.tag} className={formClasses.input} />
+        </div>
+        <div className={formClasses.formGroup}>
+          <label htmlFor="connectionId" className={formClasses.label}>Connection</label>
           <select id="connectionId" name="connectionId" defaultValue={query?.connectionId} className={formClasses.select}>
             {connections.map(connection => (
-              <option key={connection.id} value={connection.id}>{connection.id}, {connection.dbType}, {connection.dbName}</option>
+              <option key={connection.id} value={connection.id}>{connection.tag}</option>
             ))}
           </select>
         </div>

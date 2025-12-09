@@ -17,6 +17,10 @@ export const loginValidation = [
 ];
 
 export const saveConnectionValidation = [
+    body('tag')
+        .trim()
+        .notEmpty()
+        .withMessage('Tag is required.'),
     body('dbType')
         .trim()
         .notEmpty()
@@ -45,6 +49,10 @@ export const saveConnectionValidation = [
 ];
 
 export const saveQueryValidation = [
+    body('tag')
+        .trim()
+        .notEmpty()
+        .withMessage('Tag is required.'),
     body('query')
         .trim()
         .notEmpty()
@@ -57,6 +65,10 @@ export const saveQueryValidation = [
 ];
 
 export const saveScheduleValidation = [
+    body('tag')
+        .trim()
+        .notEmpty()
+        .withMessage('Tag is required.'),
     body('cron')
         .trim()
         .notEmpty()

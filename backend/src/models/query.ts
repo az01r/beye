@@ -11,6 +11,10 @@ const Query = sequelize.define<QueryModel>(
       allowNull: false,
       primaryKey: true,
     },
+    tag: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
     query: {
       type: DataTypes.TEXT,
       allowNull: false,

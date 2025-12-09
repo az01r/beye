@@ -2,6 +2,7 @@ import type { CreationOptional, InferAttributes, InferCreationAttributes, Model 
 
 export interface ScheduleModel extends Model<InferAttributes<ScheduleModel>, InferCreationAttributes<ScheduleModel>> {
   id: CreationOptional<number>;
+  tag: string;
   cron: string;
   queryId: number;
   createdAt?: CreationOptional<Date>;
@@ -9,4 +10,4 @@ export interface ScheduleModel extends Model<InferAttributes<ScheduleModel>, Inf
 }
 
 export type ReadScheduleType = Pick<ScheduleModel, 'id' | 'cron' | 'queryId'>;
-export type CreateScheduleType = Pick<ScheduleModel, 'cron' | 'queryId'>;
+export type CreateScheduleType = Pick<ScheduleModel, 'tag' | 'cron' | 'queryId'>;
