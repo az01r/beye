@@ -4,7 +4,7 @@ import { addSchedule, removeSchedule } from '../controllers/schedule-controller.
 
 const router = Router();
 
-router.post('/', /*saveScheduleValidation, validateRequest, */addSchedule);
+router.post('/', addSchedule);
 router.delete('/:scheduleId', removeSchedule);
 
 export default router;

@@ -12,7 +12,7 @@ import { initScheduler } from "./util/query-scheduler.js";
 
 defineAssociations();
 
-await sequelize.sync();
+// await sequelize.sync(); Managed in backend api
 
 await sequelize.authenticate();
 console.log("\x1b[32mConnected to MySql\x1b[0m");

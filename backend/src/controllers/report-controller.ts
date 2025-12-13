@@ -25,7 +25,7 @@ export const getReport = async (req: Request, res: Response, next: NextFunction)
   const userId = req.userId as number;
   const fileName = req.body.fileName as string;
   try {
-    const filePath = path.join(process.cwd(), 'data', userId.toString(), fileName);
+    const filePath = path.join(process.cwd(), '../data', userId.toString(), fileName);
 
     res.download(filePath, fileName, (err) => {
       if (err) {
