@@ -3,7 +3,7 @@ import path from "path";
 import ExcelJS from "exceljs";
 
 export const writeReportFile = async (results: unknown, userId: number, fileName: string, fileFormat: 'json' | 'xlsx') => {
-    const filePath = path.join(process.cwd(), "../data", userId.toString(), fileName);
+    const filePath = path.join(process.cwd(), "../reports", userId.toString(), fileName);
     await fs.mkdir(path.dirname(filePath), { recursive: true });
 
     if (fileFormat === "json") {
