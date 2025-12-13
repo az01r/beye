@@ -4,7 +4,7 @@ import type { CreateQueryType, EditQueryType } from "./types/query-types";
 import type { CreateScheduleType, EditScheduleType } from "./types/schedule-type";
 import { getAuthToken } from "./util/auth";
 
-const BASE_URL = import.meta.env.VITE_URL || "http://localhost:3000";
+const BASE_URL = import.meta.env.VITE_BACKEND_URL || "http://localhost:3000";
 
 export async function deleteSchedule(scheduleId: number) {
   const token = getAuthToken();

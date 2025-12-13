@@ -9,7 +9,7 @@ import formClasses from "../styles/Form.module.css";
 import btnClasses from "../styles/Button.module.css";
 
 export default function AuthForm() {
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams/*, setSearchParams*/] = useSearchParams();
   const isLogin = searchParams.get("mode") === "login";
 
   const actionData: { message: string[] | string } | undefined = useActionData(); // retrieved from the response after form submit when status === 401 or 422

@@ -2,9 +2,9 @@ import { Sequelize } from "sequelize";
 import { config } from "dotenv";
 config();
 
-const MYSQL_URI = `mysql://${process.env.MYSQL_USER}:${process.env.MYSQL_PASSWORD}@${process.env.MYSQL_HOST}:${process.env.MYSQL_PORT}/${process.env.MYSQL_DB}`;
+const DB_URI = `mysql://${process.env.DB_USER}:${process.env.DB_PASSWORD}@${process.env.DB_HOST}:${process.env.DB_PORT}/${process.env.DB_NAME}`;
 
-const sequelize = new Sequelize(MYSQL_URI, {
+const sequelize = new Sequelize(DB_URI, {
     dialect: 'mysql',
     logging: false,
 });

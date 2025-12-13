@@ -1,0 +1,52 @@
+services:
+  db:
+    image: mysql:8.0
+    restart: always
+    env_file:
+      - ./env/mysql.env
+    volumes:
+      - mysql-beye-data:/var/lib/mysql
+    healthcheck:
+      test: [ "CMD", "mysqladmin", "ping", "-h", "localhost" ]
+      timeout: 20s
+      retries: 10
+
+  backend:
+    build: ./backend
+    restart: always
+    ports:
+      - "3000:3000"
+    env_file:
+      - ./env/backend.env
+    depends_on:
+      db:
+        condition: service_healthy
+
+  scheduler:
+    build: ./scheduler
+    restart: always
+    ports:
+      - "3001:3001"
+    env_file:
+      - ./env/scheduler.env
+    depends_on:
+      db:
+        condition: service_healthy
+
+  frontend:
+    build:
+      context: ./frontend
+      args:
+        VITE_URL: http://localhost:5173
+    restart: always
+    ports:
+      - "5173:80"
+    depends_on:
+      - backend
+      - scheduler
+      - db
+    env_file:
+      - ./env/frontend.env
+
+volumes:
+  mysql-beye-data:
