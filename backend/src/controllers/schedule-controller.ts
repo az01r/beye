@@ -83,7 +83,7 @@ export const updateSchedule = async (req: Request, res: Response, next: NextFunc
       throw new CustomError("Schedule not found.", 404);
     }
     const updatedSchedule: ReadScheduleType = { id: scheduleId, cron, queryId, fileFormat };
-    scheduleQuery(updatedSchedule);
+    await scheduleQuery(updatedSchedule);
     res.status(200).json({ message: "Schedule updated successfully." });
   } catch (error) {
     next(error);
@@ -99,7 +99,7 @@ export const deleteSchedule = async (req: Request, res: Response, next: NextFunc
     if (deletedRows === 0) {
       throw new CustomError("Schedule not found.", 404);
     }
-    unscheduleQuery(scheduleId);
+    await unscheduleQuery(scheduleId);
     res.status(200).json({ message: "Schedule removed successfully." });
   } catch (error) {
     next(error);

@@ -1,32 +1,31 @@
-import cron from "node-cron";
-
-import Schedule from "../models/schedule.js";
-import runReport from "./runReport.js";
+import CustomError from "../types/error-type.js";
 import { ReadScheduleType } from "../types/schedule-type.js";
+import { config } from "dotenv";
+config();
 
-export const scheduledTasks = new Map<number, cron.ScheduledTask>();
-
-export const initScheduler = async () => {
-  const schedules = await Schedule.findAll();
-  schedules.forEach((schedule) => {
-    scheduleQuery(schedule);
+export const scheduleQuery = async (schedule: ReadScheduleType) => {
+  const response = await fetch(`${process.env.SCHEDULER_URL}/schedules`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(schedule),
   });
-};
 
-export const scheduleQuery = (schedule: ReadScheduleType) => {
-  if (scheduledTasks.has(schedule.id)) {
-    scheduledTasks.get(schedule.id)?.stop();
+  if (!response.ok) {
+    throw new CustomError(response.statusText, response.status);
   }
-  const task = cron.schedule(schedule.cron, async () => {
-    await runReport(schedule);
-  });
-  scheduledTasks.set(schedule.id, task);
 };
 
-export const unscheduleQuery = (scheduleId: number) => {
-  const task = scheduledTasks.get(scheduleId);
-  if (task) {
-    task.stop();
-    scheduledTasks.delete(scheduleId);
+export const unscheduleQuery = async (scheduleId: number) => {
+  const response = await fetch(`${process.env.SCHEDULER_URL}/schedules/${scheduleId}`, {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  });
+
+  if (!response.ok) {
+    throw new CustomError(response.statusText, response.status);
   }
 };
